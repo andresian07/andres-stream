@@ -1,0 +1,31 @@
+Petición HTTP GET /movies
+        ↓
+  MovieController
+  (recibe la petición, la delega)
+        ↓
+  MovieService
+  (busca los datos y aplica la lógica)
+        ↓
+  CrudMovieEntity
+  (consulta la base de datos)
+        ↓
+  Devuelve List<MovieEntity>
+        ↓
+  MovieMapper.toDto()
+  (convierte cada Entity → Dto)
+        ↓
+  MovieController devuelve List<MovieDto>
+        ↓
+  JSON limpio al usuario
+
+
+  src/main/java/com/andres_play/
+  ├── web/
+  │   ├── controller/   ← recibe HTTP, no sabe nada de BD
+  │   └── dto/          ← lo que sale por la API
+  ├── domain/
+  │   └── service/      ← lógica de negocio
+  └── persistence/
+      ├── entity/        ← espejo de la tabla en BD
+      ├── crud/          ← acceso a BD (JPA)
+      └── mapper/        ← traduce Entity ↔ Dto
