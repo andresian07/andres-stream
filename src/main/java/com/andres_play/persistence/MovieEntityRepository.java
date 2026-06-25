@@ -2,6 +2,7 @@ package com.andres_play.persistence;
 
 import com.andres_play.domain.dto.MovieDto;
 import com.andres_play.domain.dto.UpdateMovieDto;
+import com.andres_play.domain.exceptions.MovieAlreadyExistException;
 import com.andres_play.domain.repository.MovieRepository;
 import com.andres_play.persistence.crud.CrudMovieEntity;
 import com.andres_play.persistence.entity.MovieEntity;
@@ -57,6 +58,10 @@ public class MovieEntityRepository implements MovieRepository {
 
     @Override
     public MovieDto save(MovieDto movieDto) {
+        if (this.crudMovieEntity.findFirstByTitulo(movieDto.title()) != null){
+            throw new MovieAlreadyExistException(movieDto.title());
+        }
+
         MovieEntity movieEntity = this.movieMapper.toEntity(movieDto);
         movieEntity.setEstado("A");
 
