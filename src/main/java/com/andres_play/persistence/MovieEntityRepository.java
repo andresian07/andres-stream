@@ -3,6 +3,7 @@ package com.andres_play.persistence;
 import com.andres_play.domain.dto.MovieDto;
 import com.andres_play.domain.dto.UpdateMovieDto;
 import com.andres_play.domain.exceptions.MovieAlreadyExistException;
+import com.andres_play.domain.exceptions.MovieDoesnotExistException;
 import com.andres_play.domain.repository.MovieRepository;
 import com.andres_play.persistence.crud.CrudMovieEntity;
 import com.andres_play.persistence.entity.MovieEntity;
@@ -80,7 +81,11 @@ public class MovieEntityRepository implements MovieRepository {
 
         }
 
-        return null;
+
+        throw new MovieDoesnotExistException(id);
+
+
+
     }
 
     @Override
@@ -96,7 +101,8 @@ public class MovieEntityRepository implements MovieRepository {
             return this.movieMapper.toDto(movieEntity);
         }
 
-        return null; // Si no existía, devuelves null
+
+        throw new MovieDoesnotExistException(id);
     }
 
 }
