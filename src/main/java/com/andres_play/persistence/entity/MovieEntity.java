@@ -30,7 +30,7 @@ public class MovieEntity {
     private BigDecimal calificacion;
 
     @Column(nullable = false, length = 1)
-    private String estado;
+    private String estado = "A";
 
     public Long getId() {
         return id;
